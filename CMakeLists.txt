@@ -6,4 +6,6 @@ set(CMAKE_CXX_STANDARD 14)
 add_executable(10_Million_Passwords
     main.cpp
         Trie.h
-        Trie.cpp)
+        Trie.cpp
+        Test.h
+        Test.cpp)
