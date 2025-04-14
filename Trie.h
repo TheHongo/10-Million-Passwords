@@ -10,7 +10,6 @@ class Trie {
         vector<node*> children = {};
         set<char> children_chars;
         int rank = -1;
-        bool end_word = false;
 
         // Constructor
         node();
@@ -25,11 +24,11 @@ public:
     Trie();
 
     // Destructor
-    // ~Trie();
+    ~Trie();
 
     // Functions
     bool insert(int rank, string word);
-    // pair<bool, int> search();
+    int search(string word);
 
     // Getters
     node* get_root(); // Used for testing
