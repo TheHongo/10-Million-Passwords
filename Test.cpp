@@ -153,10 +153,25 @@ bool trie_test_4() {
     return true;
 }
 
+bool trie_test_5() {
+    // Destructor test (seg fault)
+
+    Trie* trie = new Trie();
+    trie->insert(1, "map");
+    trie->insert(2, "ma");
+    trie->insert(3, "mat");
+
+    delete trie;
+
+    return true;
+}
+
+
 void Test::trie_test() {
     if (!trie_test_1()) {cout << "trie test 1 failed" << endl;} // Inserting
     if (!trie_test_2()) {cout << "trie test 2 failed" << endl;} // Inserting
     if (!trie_test_3()) {cout << "trie test 3 failed" << endl;} // Inserting
     if (!trie_test_4()) {cout << "trie test 4 failed" << endl;} // Searching
+    if (!trie_test_5()) {cout << "trie test 5 failed" << endl;} // Destructor
 }
 // End trie testing
