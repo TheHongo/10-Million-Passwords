@@ -1,4 +1,4 @@
-#include "Trie.h"
+#include "../Trie.h"
 
 #include <queue>
 
