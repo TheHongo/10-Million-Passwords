@@ -1,0 +1,5 @@
+# ninja log v6
+3	244	7665487847605059	CMakeFiles/10_Million_Passwords.dir/main.cpp.obj	54afc4f78a7746bd
+9	264	7665487847666123	CMakeFiles/10_Million_Passwords.dir/Test.cpp.obj	e73fb328faacdd85
+6	307	7665487847645065	CMakeFiles/10_Million_Passwords.dir/Trie.cpp.obj	d375865d7ed62238
+307	436	7665487850638544	10_Million_Passwords.exe	b6331debf041d23a
