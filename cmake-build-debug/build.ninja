@@ -70,6 +70,13 @@ build CMakeFiles/10_Million_Passwords.dir/src/Test.cpp.obj: CXX_COMPILER__10_Mil
   OBJECT_DIR = CMakeFiles\10_Million_Passwords.dir
   OBJECT_FILE_DIR = CMakeFiles\10_Million_Passwords.dir\src
 
+build CMakeFiles/10_Million_Passwords.dir/src/GUI.cpp.obj: CXX_COMPILER__10_Million_Passwords_unscanned_Debug C$:/Users/theho/CLionProjects/10-Million-Passwords/src/GUI.cpp || cmake_object_order_depends_target_10_Million_Passwords
+  DEP_FILE = CMakeFiles\10_Million_Passwords.dir\src\GUI.cpp.obj.d
+  FLAGS = -g -std=gnu++14 -fdiagnostics-color=always
+  INCLUDES = -isystem C:/Users/theho/CLionProjects/10-Million-Passwords/SFML-2.5.1/include
+  OBJECT_DIR = CMakeFiles\10_Million_Passwords.dir
+  OBJECT_FILE_DIR = CMakeFiles\10_Million_Passwords.dir\src
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target 10_Million_Passwords
@@ -78,7 +85,7 @@ build CMakeFiles/10_Million_Passwords.dir/src/Test.cpp.obj: CXX_COMPILER__10_Mil
 #############################################
 # Link the executable 10_Million_Passwords.exe
 
-build 10_Million_Passwords.exe: CXX_EXECUTABLE_LINKER__10_Million_Passwords_Debug CMakeFiles/10_Million_Passwords.dir/src/main.cpp.obj CMakeFiles/10_Million_Passwords.dir/src/Trie.cpp.obj CMakeFiles/10_Million_Passwords.dir/src/Test.cpp.obj | C$:/Users/theho/CLionProjects/10-Million-Passwords/SFML-2.5.1/lib/sfml-graphics-d.lib C$:/Users/theho/CLionProjects/10-Million-Passwords/SFML-2.5.1/lib/sfml-window-d.lib C$:/Users/theho/CLionProjects/10-Million-Passwords/SFML-2.5.1/lib/sfml-system-d.lib
+build 10_Million_Passwords.exe: CXX_EXECUTABLE_LINKER__10_Million_Passwords_Debug CMakeFiles/10_Million_Passwords.dir/src/main.cpp.obj CMakeFiles/10_Million_Passwords.dir/src/Trie.cpp.obj CMakeFiles/10_Million_Passwords.dir/src/Test.cpp.obj CMakeFiles/10_Million_Passwords.dir/src/GUI.cpp.obj | C$:/Users/theho/CLionProjects/10-Million-Passwords/SFML-2.5.1/lib/sfml-graphics-d.lib C$:/Users/theho/CLionProjects/10-Million-Passwords/SFML-2.5.1/lib/sfml-window-d.lib C$:/Users/theho/CLionProjects/10-Million-Passwords/SFML-2.5.1/lib/sfml-system-d.lib
   FLAGS = -g
   LINK_LIBRARIES = C:/Users/theho/CLionProjects/10-Million-Passwords/SFML-2.5.1/lib/sfml-graphics-d.lib  C:/Users/theho/CLionProjects/10-Million-Passwords/SFML-2.5.1/lib/sfml-window-d.lib  C:/Users/theho/CLionProjects/10-Million-Passwords/SFML-2.5.1/lib/sfml-system-d.lib  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\10_Million_Passwords.dir

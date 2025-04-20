@@ -12,7 +12,9 @@ add_executable(10_Million_Passwords
         src/Trie.h
         src/Trie.cpp
         src/Test.h
-        src/Test.cpp)
+        src/Test.cpp
+        src/GUI.cpp
+        src/GUI.h)
 
 target_link_libraries(10_Million_Passwords sfml-graphics sfml-window sfml-system)
 
