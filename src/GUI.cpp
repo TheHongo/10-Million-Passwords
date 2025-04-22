@@ -158,6 +158,11 @@ void Screen::handleMousePressedEvent(const sf::Event& event, std::string& curren
     }
 }
 
+Screen::Screen(Trie &trie, Hash_Table_LL_Chaining &hash) {
+    this->trie = trie;
+    this->hash = hash;
+}
+
 
 CheckButton::CheckButton(sf::Texture& texture, float width, float height) : CheckButtonTexture(texture) {
     CheckButtonSprite.setTexture(CheckButtonTexture);
