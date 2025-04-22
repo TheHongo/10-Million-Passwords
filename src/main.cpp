@@ -8,4 +8,5 @@ int main() {
     // Testing
     Screen screen;
     screen.openWindow(800.0f, 600.0f);
+    Trie trie;
 }
