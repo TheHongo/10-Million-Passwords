@@ -38,4 +38,5 @@ int main() {
 
     Screen screen;
     screen.openWindow(800.0f, 600.0f);
+    // comment
 }
