@@ -1,7 +1,5 @@
 #include "Trie.h"
 
-#include <queue>
-
 // Constructors
 Trie::node::node() {
     char null_char = '\0';
