@@ -19,7 +19,7 @@ class Hash_Table_LL_Chaining {
     public:
 
     ~Hash_Table_LL_Chaining();
-    explicit Hash_Table_LL_Chaining(int capacity = 10); // int OeNLY
+    explicit Hash_Table_LL_Chaining(int capacity = 10); // int ONLY
     void insert(int rank, std::string pass);
     int search(std::string pass) const;
 

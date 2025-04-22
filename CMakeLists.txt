@@ -14,7 +14,9 @@ add_executable(10_Million_Passwords
         src/Test.h
         src/Test.cpp
         src/GUI.cpp
-        src/GUI.h)
+        src/GUI.h
+        src/Hash_Table_LL_Chaining.cpp
+        src/Hash_Table_LL_Chaining.h)
 
 target_link_libraries(10_Million_Passwords sfml-graphics sfml-window sfml-system)
 

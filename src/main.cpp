@@ -4,6 +4,7 @@
 #include "Trie.h"
 #include "Test.h"
 #include "GUI.h"
+#include "Hash_Table_LL_Chaining.h"
 
 using namespace std;
 
@@ -11,7 +12,7 @@ int main() {
     // reading from the file and inserting into the data structure
     // create data structure objects
     Trie trie;
-    // (HASH OBJECT HERE) ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Hash_Table_LL_Chaining hash(1000);
     // open file
     string filename = "../Data/10millionPasswords.csv";
     ifstream file;
@@ -32,7 +33,7 @@ int main() {
         rank = stoi(rank_s);
         // insert
         trie.insert(rank, word);
-        // (HASH INSERT HERE) hash.insert(rank, word); ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        hash.insert(rank, word);
     }
 
     Screen screen;
