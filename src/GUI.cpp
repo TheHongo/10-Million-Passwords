@@ -54,8 +54,6 @@ void Screen::openWindow(float width, float height) {
 std::string Screen::processEvents(sf::RenderWindow& Screen, sf::Font& font,
     sf::Text& Title, sf::Text& EnterPassword, float width, float height, CheckButton& checkButton) {
 
-    History history;
-
     std::string currentInput = "|"; // Including '|' initially for visual
     std::string lastPassword = "";  // Store the password
     bool passwordReceived = false; // Flag to check if password is received
@@ -63,7 +61,6 @@ std::string Screen::processEvents(sf::RenderWindow& Screen, sf::Font& font,
     while (Screen.isOpen()) {
         sf::Event event;
         while (Screen.pollEvent(event)) {
-            std::cout << event.type << std::endl;
             if (event.type == sf::Event::Closed) {
                 Screen.close();
                 exit(0); //done
@@ -87,12 +84,18 @@ std::string Screen::processEvents(sf::RenderWindow& Screen, sf::Font& font,
         // Call upon one of the other functions and if found print found or not
         sf::Text LastEntered = createText(font, "Last Password: " + lastPassword, 16, sf::Color::Blue, sf::Text::Italic);
         setText(LastEntered, width / 2.0f, height / 2.0f + 40);
-
+        sf::Text RankText;
+        if (rank != "N/A Password is Secure!"){
+            RankText = createText(font, "Rank: " + rank, 16, sf::Color::Green, sf::Text::Italic);
+        }
+        else{
+            RankText = createText(font, "Rank: " + rank, 16, sf::Color::Red, sf::Text::Italic);
+        }
+        setText(RankText, width / 2.0f, height / 2.0f + 60);
         // Fix to change to check rank
         // If found display rank else diplay N/A
         sf::Text PasswordReceivedText;
         if (passwordReceived) {
-            std::cout << "begening" << std::endl;
             PasswordReceivedText = createText(font, "Password Received", 16, sf::Color::Green, sf::Text::Bold);
             setText(PasswordReceivedText, width / 2.0f, height / 2.0f + 75); // Position below the last entered password
             auto start = std::chrono::high_resolution_clock::now();
@@ -103,17 +106,16 @@ std::string Screen::processEvents(sf::RenderWindow& Screen, sf::Font& font,
             int hash_rank = hash.search(lastPassword);
             end = std::chrono::high_resolution_clock::now();
             hash_time = end - start;
-            std::cout << "hello" << std::endl;
             if (trie_rank != hash_rank){
                 std::cout << "Wrong rank found" << "\nHash Rank: " << hash_rank << "\nTrie Rank: " << trie_rank << std::endl;
             }
-            if (trie_rank != -1){
-                // not valid
+            if (trie_rank == -1){
+                rank = "N/A Password is Secure!";
             }
             else {
-                // assign rank and put on screen
+                rank = to_string(trie_rank);
             }
-            std::cout << "end near" << std::endl;
+            history.addPassword(lastPassword + " || Rank: " + rank);
             passwordReceived = false;
 
         }
@@ -133,6 +135,7 @@ std::string Screen::processEvents(sf::RenderWindow& Screen, sf::Font& font,
         Screen.draw(backgroundRect);
         Screen.draw(PasswordText);
         Screen.draw(LastEntered);
+        Screen.draw(RankText);
         if (passwordReceived) {
             Screen.draw(PasswordReceivedText); // Draw the "Password Received" message
         }
@@ -156,7 +159,6 @@ void Screen::handleTextEnteredEvent(const sf::Event& event, std::string& current
     } else if (event.text.unicode == 13) { // Enter
         if (currentInput.length() > 1) {
             lastPassword = currentInput.substr(0, currentInput.size() - 1); // Remove '|'
-            history.addPassword(lastPassword);
             currentInput = "|";
             passwordReceived = true;
         }
@@ -175,7 +177,6 @@ void Screen::handleMousePressedEvent(const sf::Event& event, std::string& curren
         if (checkButton.isChecked(mousePos)) {
             if (currentInput.length() > 1) {
                 lastPassword = currentInput.substr(0, currentInput.size() - 1);
-                history.addPassword(lastPassword);
                 currentInput = "|";
                 passwordReceived = true;
             }
@@ -224,3 +225,4 @@ void History::drawHistory(sf::RenderWindow& window, const sf::Font& font, float 
         window.draw(entry);
     }
 }
+
