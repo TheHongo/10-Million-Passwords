@@ -12,6 +12,7 @@ Hash_Table_LL_Chaining::Hash_Table_LL_Chaining(int capacity) {
 Hash_Table_LL_Chaining::~Hash_Table_LL_Chaining() {
     delete[] hash_table;
 }
+//yeah
 
 int Hash_Table_LL_Chaining::hash(string &pass_key) const{
     int hash_val = 0;
