@@ -1,6 +1,8 @@
 #include <SFML/Graphics.hpp>
 #include "GUI.h"
 #include <chrono>
+#include <sstream>
+#include <iomanip>
 
 #include <iostream>
 using namespace std;
@@ -84,7 +86,29 @@ std::string Screen::processEvents(sf::RenderWindow& Screen, sf::Font& font,
         // Call upon one of the other functions and if found print found or not
         sf::Text LastEntered = createText(font, "Last Password: " + lastPassword, 16, sf::Color::Blue, sf::Text::Italic);
         setText(LastEntered, width / 2.0f, height / 2.0f + 40);
+
+        double seconds = std::chrono::duration<double, std::micro>(trie_time).count();
+
+        std::stringstream ss;
+        ss << std::setprecision(4) << seconds;
+
+        sf::Text t_time = createText(font, "Trie: " + ss.str() + " us", 16, sf::Color::Blue, sf::Text::Italic);
+        setText(t_time, width * 0.8, height * 0.85);
+
+        ss.str("");
+        ss.clear();
+
+        seconds = std::chrono::duration<double, std::micro>(hash_time).count();
+
+        ss << seconds;
+
+        sf::Text h_time = createText(font, "Hash Table: " + ss.str() + " us", 16, sf::Color::Blue, sf::Text::Italic);
+        setText(h_time, width * 0.8, height * 0.9);
+
         sf::Text RankText;
+        sf::Text timing = createText(font, "Time for Search", 18, sf::Color::Black, sf::Text::Underlined);
+        setText(timing, width * 0.8, height * 0.8);
+
         if (rank != "N/A Password is Secure!"){
             RankText = createText(font, "Rank: " + rank, 16, sf::Color::Green, sf::Text::Italic);
         }
@@ -92,6 +116,8 @@ std::string Screen::processEvents(sf::RenderWindow& Screen, sf::Font& font,
             RankText = createText(font, "Rank: " + rank, 16, sf::Color::Red, sf::Text::Italic);
         }
         setText(RankText, width / 2.0f, height / 2.0f + 60);
+
+
         // Fix to change to check rank
         // If found display rank else diplay N/A
         sf::Text PasswordReceivedText;
@@ -136,6 +162,9 @@ std::string Screen::processEvents(sf::RenderWindow& Screen, sf::Font& font,
         Screen.draw(PasswordText);
         Screen.draw(LastEntered);
         Screen.draw(RankText);
+        Screen.draw(t_time);
+        Screen.draw(h_time);
+        Screen.draw(timing);
         if (passwordReceived) {
             Screen.draw(PasswordReceivedText); // Draw the "Password Received" message
         }

@@ -41,7 +41,7 @@ void Hash_Table_LL_Chaining::rehash() {
 
 void Hash_Table_LL_Chaining::insert(int rank, std::string pass) {
     hash_table[hash(pass)].emplace_back(pass, rank);
-    if (load_factor() > 1.5){
+    if (load_factor() > 0.7){
         rehash();
     }
 }
