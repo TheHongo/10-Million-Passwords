@@ -2,8 +2,10 @@
 #include "Test.h"
 #include "GUI.h"
 
+using namespace std;
+
 int main() {
     // Testing
-    Test test;
-    test.trie_test();
+    Screen screen;
+    screen.openWindow(800.0f, 600.0f);
 }

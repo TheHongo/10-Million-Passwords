@@ -3,23 +3,44 @@
 
 #include <string>
 #include <SFML/Graphics.hpp>
+#include <vector>
 
-class Screen {
-private:
-    sf::Text createText(const sf::Font& font, const std::string& String, int CharSize, sf::Color color, unsigned int style);
-    void setText(sf::Text& text, float x, float y);
-public:
-    std::string openWindow(float width, float height);
-};
+using namespace std;
 
 class CheckButton {
 private:
-    sf::Sprite CheckButtonSprite;
     const sf::Texture& CheckButtonTexture;
 public:
-    CheckButton(sf::Texture& texture);
-    void setPosition(float width, float height);
+    sf::Sprite CheckButtonSprite;
+    CheckButton(sf::Texture& texture, float width, float height);
     bool isChecked(const sf::Vector2f& mousePos) const;
+};
+
+class History {
+private:
+    vector<string> passwordHistory;
+    const size_t maxSize = 5;
+
+public:
+    void addPassword(const string& password);
+    void drawHistory(sf::RenderWindow& window, const sf::Font& font, float startX, float startY);
+};
+
+class Screen {
+public:
+    sf::Text createText(const sf::Font& font, const string& String, int CharSize,
+                    sf::Color color, unsigned int style);
+    void setText(sf::Text& text, float x, float y);
+    void openWindow(float width, float height);
+    string processEvents(sf::RenderWindow& Screen, sf::Font& font, sf::Text& Title,
+                                sf::Text& EnterPassword, float width, float height,
+                                CheckButton& checkButton); // Handle events
+    void handleTextEnteredEvent(const sf::Event& event, string& currentInput,
+                                string& lastPassword, bool& passwordReceived, History& history);
+    void handleMousePressedEvent(const sf::Event& event, string& currentInput,
+                                 string& lastPassword, bool& passwordReceived,
+                                 History& history, CheckButton& checkButton);
+    CheckButton* checkButton;
 };
 
 #endif

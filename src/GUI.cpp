@@ -1,7 +1,10 @@
 #include <SFML/Graphics.hpp>
 #include "GUI.h"
 
-sf::Text createText(const sf::Font& font, const std::string& String,
+#include <iostream>
+using namespace std;
+
+sf::Text Screen::createText(const sf::Font& font, const std::string& String,
 int CharSize, sf::Color color, unsigned int style) {
     sf::Text text;
     text.setFont(font);
@@ -12,84 +15,182 @@ int CharSize, sf::Color color, unsigned int style) {
     return text;
 }
 
-void setText(sf::Text& text, float x, float y) {
+void Screen::setText(sf::Text& text, float x, float y) {
     sf::FloatRect textRect = text.getLocalBounds();
     text.setOrigin(textRect.left + textRect.width / 2,
         textRect.top + textRect.height / 2);
     text.setPosition(sf::Vector2f(x, y));
 }
-
-std::string openWindow(float width, float height) {
+void Screen::openWindow(float width, float height) {
     sf::RenderWindow Screen(sf::VideoMode(width, height), "Password Checker", sf::Style::Close);
 
     sf::Font font;
-    font.loadFromFile("font.ttf");
+    if (!font.loadFromFile("font.ttf")) {
+        std::cerr << "Error loading font!" << std::endl;
+        return;
+    }
 
-    sf::Text Title = createText(font, "Password Checker", 20, sf::Color::Black, (sf::Text::Bold | sf::Text::Underlined));
-    setText(Title, width/2.0f, height/2.0f - 150.0f);
+    // Load Check Button texture
+    sf::Texture buttonTexture;
+    if (!buttonTexture.loadFromFile("Images/Check.png")) {
+        std::cerr << "Error loading button texture!" << std::endl;
+        return;
+    }
 
-    sf::Text EnterPassword = createText(font, "Enter your password", 20, sf::Color::Black, (sf::Text::Bold));
-    setText(EnterPassword, width/2.0f, height/2.0f - 75.0f);
+    // Create CheckButton
+    CheckButton checkButton(buttonTexture, width, height);
 
-    std::string StringPass;
-    char a = '|';
-    StringPass += a;
+    // Set up title and instruction text
+    sf::Text Title = createText(font, "Password Checker", 40, sf::Color::Black, (sf::Text::Bold | sf::Text::Underlined));
+    setText(Title, width / 2.0f, height / 2.0f - 200.0f);
 
-    // Keeps screen open for the bulk of the stuff
+    sf::Text EnterPassword = createText(font, "Enter your password", 24, sf::Color::Black, sf::Text::Bold);
+    setText(EnterPassword, width / 2.0f, height / 2.0f - 100.0f);
+
+    std::string password = processEvents(Screen, font, Title, EnterPassword, width, height, checkButton); // Pass the button for handling
+}
+
+std::string Screen::processEvents(sf::RenderWindow& Screen, sf::Font& font,
+    sf::Text& Title, sf::Text& EnterPassword, float width, float height, CheckButton& checkButton) {
+
+    History history;
+
+    std::string currentInput = "|"; // Including '|' initially for visual
+    std::string lastPassword = "";  // Store the password
+    bool passwordReceived = false; // Flag to check if password is received
+
     while (Screen.isOpen()) {
         sf::Event event;
         while (Screen.pollEvent(event)) {
             if (event.type == sf::Event::Closed) {
                 Screen.close();
-                break;
+                return ""; // Window was closed
             }
 
-            if (event.type == sf::Event::KeyPressed) {
-                if (event.key.code == sf::Keyboard::BackSpace) {
-                    if (StringPass.length() > 1) {
-                        StringPass.pop_back();
-                        StringPass.pop_back();
-                        char a = '|';
-                        StringPass += a;
-                    }
-                } else if (event.key.code == sf::Keyboard::Enter) {
-                    // If Password is between 1 and 30
-                    if (StringPass.length() > 1) {
-                        StringPass.pop_back();
-                        return StringPass;
-                    }
-                } else {
-                    if (event.key.code >= sf::Keyboard::A && event.key.code <= sf::Keyboard::Z && (StringPass.size() <= 30)) {
-                        StringPass.pop_back();
-                        char c = 'A' + (event.key.code - sf::Keyboard::A);
-                        StringPass += c;
-                        char a = '|';
-                        StringPass += a;
-                    }
-                }
+            if (event.type == sf::Event::TextEntered) {
+                handleTextEnteredEvent(event, currentInput, lastPassword, passwordReceived, history);
+            }
+
+            // Check if the check button was clicked
+            if (event.type == sf::Event::MouseButtonPressed) {
+                handleMousePressedEvent(event, currentInput, lastPassword, passwordReceived, history, checkButton);
             }
         }
-        sf::Text Password = createText(font, StringPass, 18, sf::Color::Yellow, sf::Text::Bold);
-        setText(Password, width / 2.0f, height / 2.0f - 45);
 
-        Screen.clear(sf::Color::Blue);
+        // Draw UI
+        sf::Text PasswordText = createText(font, currentInput, 18, sf::Color::Black, sf::Text::Bold);
+        setText(PasswordText, width / 2.0f, height / 2.0f - 45);
+
+        // Call upon one of the other functions and if found print found or not
+        sf::Text LastEntered = createText(font, "Last Password: " + lastPassword, 16, sf::Color::Blue, sf::Text::Italic);
+        setText(LastEntered, width / 2.0f, height / 2.0f + 40);
+
+        // Fix to change to check rank
+        // If found display rank else diplay N/A
+        sf::Text PasswordReceivedText;
+        if (passwordReceived) {
+            PasswordReceivedText = createText(font, "Password Received", 16, sf::Color::Green, sf::Text::Bold);
+            setText(PasswordReceivedText, width / 2.0f, height / 2.0f + 75); // Position below the last entered password
+        }
+
+        // Makes the background for the text
+        sf::FloatRect textBounds = PasswordText.getGlobalBounds();
+        sf::RectangleShape backgroundRect;
+        backgroundRect.setSize(sf::Vector2f(400, textBounds.height + 20));
+        backgroundRect.setFillColor(sf::Color::Yellow);
+        backgroundRect.setOrigin(backgroundRect.getSize().x / 2, backgroundRect.getSize().y / 2);
+        backgroundRect.setPosition(PasswordText.getPosition()); // Same center as text
+
+        // Draws everything out
+        Screen.clear(sf::Color(160, 160, 160));
         Screen.draw(Title);
         Screen.draw(EnterPassword);
-        Screen.draw(Password);
+        Screen.draw(backgroundRect);
+        Screen.draw(PasswordText);
+        Screen.draw(LastEntered);
+        if (passwordReceived) {
+            Screen.draw(PasswordReceivedText); // Draw the "Password Received" message
+        }
+        Screen.draw(checkButton.CheckButtonSprite); // Draw the check button
+        history.drawHistory(Screen, font, 10.0f, height - 20.0f);
         Screen.display();
+    }
 
+    return lastPassword; // Return the password when the check button is clicked
+}
+
+void Screen::handleTextEnteredEvent(const sf::Event& event, std::string& currentInput,
+    std::string& lastPassword, bool& passwordReceived, History& history) {
+
+    if (event.text.unicode == 8) { // Backspace
+        if (currentInput.length() > 1) {
+            currentInput.pop_back(); // remove '|'
+            currentInput.pop_back(); // remove last char
+            currentInput += '|';     // re-add '|'
+        }
+    } else if (event.text.unicode == 13) { // Enter
+        if (currentInput.length() > 1) {
+            lastPassword = currentInput.substr(0, currentInput.size() - 1); // Remove '|'
+            history.addPassword(lastPassword);
+            currentInput = "|";
+            passwordReceived = true;
+        }
+    } else if ((event.text.unicode > 32 && event.text.unicode < 127) && currentInput.size() <= 30) {
+        currentInput.pop_back(); // remove '|'
+        currentInput += static_cast<char>(event.text.unicode);
+        currentInput += '|';
     }
 }
 
-CheckButton::CheckButton(sf::Texture& texture) : CheckButtonTexture(texture) {
-    CheckButtonSprite.setTexture(CheckButtonTexture);
+void Screen::handleMousePressedEvent(const sf::Event& event, std::string& currentInput,
+    std::string& lastPassword, bool& passwordReceived, History& history, CheckButton& checkButton) {
+
+    if (event.mouseButton.button == sf::Mouse::Left) {
+        sf::Vector2f mousePos(event.mouseButton.x, event.mouseButton.y);
+        if (checkButton.isChecked(mousePos)) {
+            if (currentInput.length() > 1) {
+                lastPassword = currentInput.substr(0, currentInput.size() - 1);
+                history.addPassword(lastPassword);
+                currentInput = "|";
+                passwordReceived = true;
+            }
+        }
+    }
 }
 
-void CheckButton::setPosition(float width, float height) {
+
+CheckButton::CheckButton(sf::Texture& texture, float width, float height) : CheckButtonTexture(texture) {
+    CheckButtonSprite.setTexture(CheckButtonTexture);
+
+    sf::FloatRect bounds = CheckButtonSprite.getLocalBounds();
+    CheckButtonSprite.setOrigin(bounds.width / 2.0f, bounds.height / 2.0f);
     CheckButtonSprite.setPosition(width / 2.0f, height / 2.0f);
+
 }
 
 bool CheckButton::isChecked(const sf::Vector2f& mousePos) const {
     return CheckButtonSprite.getGlobalBounds().contains(mousePos);
 }
 
+void History::addPassword(const std::string& password) {
+    passwordHistory.push_back(password);
+    if (passwordHistory.size() > maxSize) {
+        passwordHistory.erase(passwordHistory.begin());
+    }
+}
+
+void History::drawHistory(sf::RenderWindow& window, const sf::Font& font, float startX, float startY) {
+    sf::Text title("Recent Passwords:", font, 14);
+    title.setFillColor(sf::Color::Black);
+    title.setStyle(sf::Text::Bold);
+    title.setPosition(startX, startY - (20.0f * (passwordHistory.size() + 1)));
+    window.draw(title);
+
+    for (std::size_t i = 0; i < passwordHistory.size(); ++i) {
+        std::size_t index = passwordHistory.size() - 1 - i; // reverse index
+        sf::Text entry(passwordHistory[index], font, 14);
+        entry.setFillColor(sf::Color::Black);
+        entry.setPosition(startX, startY - (i * 20.0f));
+        window.draw(entry);
+    }
+}
