@@ -36,7 +36,7 @@ int main() {
         hash.insert(rank, word);
     }
 
-    Screen screen;
+    Screen screen(trie, hash);
     screen.openWindow(800.0f, 600.0f);
     // comment
 }

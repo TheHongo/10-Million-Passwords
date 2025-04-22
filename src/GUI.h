@@ -5,6 +5,9 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 
+#include "Trie.h"
+#include "Hash_Table_LL_Chaining.h"
+
 using namespace std;
 
 class CheckButton {
@@ -27,7 +30,10 @@ public:
 };
 
 class Screen {
+    Trie trie;
+    Hash_Table_LL_Chaining hash;
 public:
+    Screen(Trie& trie, Hash_Table_LL_Chaining& hash);
     sf::Text createText(const sf::Font& font, const string& String, int CharSize,
                     sf::Color color, unsigned int style);
     void setText(sf::Text& text, float x, float y);
