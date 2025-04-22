@@ -35,6 +35,7 @@ std::string openWindow(float width, float height) {
     char a = '|';
     StringPass += a;
 
+    // Keeps screen open for the bulk of the stuff
     while (Screen.isOpen()) {
         sf::Event event;
         while (Screen.pollEvent(event)) {

@@ -5,7 +5,7 @@ set(CMAKE_CXX_STANDARD 14)
 
 set(SFML_DIR "${CMAKE_SOURCE_DIR}/SFML-2.5.1/lib/cmake/SFML")
 
-find_package(SFML 2.5 COMPONENTS graphics window system REQUIRED)
+find_package(SFML 2.5 REQUIRED graphics window system)
 
 add_executable(10_Million_Passwords
         src/main.cpp
@@ -18,7 +18,10 @@ add_executable(10_Million_Passwords
 
 target_link_libraries(10_Million_Passwords sfml-graphics sfml-window sfml-system)
 
-include_directories("${CMAKE_SOURCE_DIR}/SFML-2.5.1/include")
+include_directories(10_Million_Passwords PRIVATE
+        ${CMAKE_SOURCE_DIR}/src
+        ${CMAKE_SOURCE_DIR}/SFML-2.5.1/include
+)
 
 link_directories("${CMAKE_SOURCE_DIR}/SFML-2.5.1/lib")
 

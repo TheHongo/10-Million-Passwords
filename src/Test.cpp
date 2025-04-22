@@ -1,4 +1,4 @@
-#include "../Test.h"
+#include "Test.h"
 
 // Trie testing
 bool trie_test_1() {

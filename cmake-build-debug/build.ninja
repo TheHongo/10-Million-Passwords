@@ -52,28 +52,28 @@ build cmake_object_order_depends_target_10_Million_Passwords: phony || .
 build CMakeFiles/10_Million_Passwords.dir/src/main.cpp.obj: CXX_COMPILER__10_Million_Passwords_unscanned_Debug C$:/Users/theho/CLionProjects/10-Million-Passwords/src/main.cpp || cmake_object_order_depends_target_10_Million_Passwords
   DEP_FILE = CMakeFiles\10_Million_Passwords.dir\src\main.cpp.obj.d
   FLAGS = -g -std=gnu++14 -fdiagnostics-color=always
-  INCLUDES = -isystem C:/Users/theho/CLionProjects/10-Million-Passwords/SFML-2.5.1/include
+  INCLUDES = -IC:/Users/theho/CLionProjects/10-Million-Passwords/10_Million_Passwords -IC:/Users/theho/CLionProjects/10-Million-Passwords/PRIVATE -IC:/Users/theho/CLionProjects/10-Million-Passwords/src -isystem C:/Users/theho/CLionProjects/10-Million-Passwords/SFML-2.5.1/include
   OBJECT_DIR = CMakeFiles\10_Million_Passwords.dir
   OBJECT_FILE_DIR = CMakeFiles\10_Million_Passwords.dir\src
 
 build CMakeFiles/10_Million_Passwords.dir/src/Trie.cpp.obj: CXX_COMPILER__10_Million_Passwords_unscanned_Debug C$:/Users/theho/CLionProjects/10-Million-Passwords/src/Trie.cpp || cmake_object_order_depends_target_10_Million_Passwords
   DEP_FILE = CMakeFiles\10_Million_Passwords.dir\src\Trie.cpp.obj.d
   FLAGS = -g -std=gnu++14 -fdiagnostics-color=always
-  INCLUDES = -isystem C:/Users/theho/CLionProjects/10-Million-Passwords/SFML-2.5.1/include
+  INCLUDES = -IC:/Users/theho/CLionProjects/10-Million-Passwords/10_Million_Passwords -IC:/Users/theho/CLionProjects/10-Million-Passwords/PRIVATE -IC:/Users/theho/CLionProjects/10-Million-Passwords/src -isystem C:/Users/theho/CLionProjects/10-Million-Passwords/SFML-2.5.1/include
   OBJECT_DIR = CMakeFiles\10_Million_Passwords.dir
   OBJECT_FILE_DIR = CMakeFiles\10_Million_Passwords.dir\src
 
 build CMakeFiles/10_Million_Passwords.dir/src/Test.cpp.obj: CXX_COMPILER__10_Million_Passwords_unscanned_Debug C$:/Users/theho/CLionProjects/10-Million-Passwords/src/Test.cpp || cmake_object_order_depends_target_10_Million_Passwords
   DEP_FILE = CMakeFiles\10_Million_Passwords.dir\src\Test.cpp.obj.d
   FLAGS = -g -std=gnu++14 -fdiagnostics-color=always
-  INCLUDES = -isystem C:/Users/theho/CLionProjects/10-Million-Passwords/SFML-2.5.1/include
+  INCLUDES = -IC:/Users/theho/CLionProjects/10-Million-Passwords/10_Million_Passwords -IC:/Users/theho/CLionProjects/10-Million-Passwords/PRIVATE -IC:/Users/theho/CLionProjects/10-Million-Passwords/src -isystem C:/Users/theho/CLionProjects/10-Million-Passwords/SFML-2.5.1/include
   OBJECT_DIR = CMakeFiles\10_Million_Passwords.dir
   OBJECT_FILE_DIR = CMakeFiles\10_Million_Passwords.dir\src
 
 build CMakeFiles/10_Million_Passwords.dir/src/GUI.cpp.obj: CXX_COMPILER__10_Million_Passwords_unscanned_Debug C$:/Users/theho/CLionProjects/10-Million-Passwords/src/GUI.cpp || cmake_object_order_depends_target_10_Million_Passwords
   DEP_FILE = CMakeFiles\10_Million_Passwords.dir\src\GUI.cpp.obj.d
   FLAGS = -g -std=gnu++14 -fdiagnostics-color=always
-  INCLUDES = -isystem C:/Users/theho/CLionProjects/10-Million-Passwords/SFML-2.5.1/include
+  INCLUDES = -IC:/Users/theho/CLionProjects/10-Million-Passwords/10_Million_Passwords -IC:/Users/theho/CLionProjects/10-Million-Passwords/PRIVATE -IC:/Users/theho/CLionProjects/10-Million-Passwords/src -isystem C:/Users/theho/CLionProjects/10-Million-Passwords/SFML-2.5.1/include
   OBJECT_DIR = CMakeFiles\10_Million_Passwords.dir
   OBJECT_FILE_DIR = CMakeFiles\10_Million_Passwords.dir\src
 
@@ -85,9 +85,9 @@ build CMakeFiles/10_Million_Passwords.dir/src/GUI.cpp.obj: CXX_COMPILER__10_Mill
 #############################################
 # Link the executable 10_Million_Passwords.exe
 
-build 10_Million_Passwords.exe: CXX_EXECUTABLE_LINKER__10_Million_Passwords_Debug CMakeFiles/10_Million_Passwords.dir/src/main.cpp.obj CMakeFiles/10_Million_Passwords.dir/src/Trie.cpp.obj CMakeFiles/10_Million_Passwords.dir/src/Test.cpp.obj CMakeFiles/10_Million_Passwords.dir/src/GUI.cpp.obj | C$:/Users/theho/CLionProjects/10-Million-Passwords/SFML-2.5.1/lib/sfml-graphics-d.lib C$:/Users/theho/CLionProjects/10-Million-Passwords/SFML-2.5.1/lib/sfml-window-d.lib C$:/Users/theho/CLionProjects/10-Million-Passwords/SFML-2.5.1/lib/sfml-system-d.lib
+build 10_Million_Passwords.exe: CXX_EXECUTABLE_LINKER__10_Million_Passwords_Debug CMakeFiles/10_Million_Passwords.dir/src/main.cpp.obj CMakeFiles/10_Million_Passwords.dir/src/Trie.cpp.obj CMakeFiles/10_Million_Passwords.dir/src/Test.cpp.obj CMakeFiles/10_Million_Passwords.dir/src/GUI.cpp.obj | C$:/Users/theho/CLionProjects/10-Million-Passwords/SFML-2.5.1/lib/libsfml-graphics-d.a C$:/Users/theho/CLionProjects/10-Million-Passwords/SFML-2.5.1/lib/libsfml-window-d.a C$:/Users/theho/CLionProjects/10-Million-Passwords/SFML-2.5.1/lib/libsfml-system-d.a
   FLAGS = -g
-  LINK_LIBRARIES = C:/Users/theho/CLionProjects/10-Million-Passwords/SFML-2.5.1/lib/sfml-graphics-d.lib  C:/Users/theho/CLionProjects/10-Million-Passwords/SFML-2.5.1/lib/sfml-window-d.lib  C:/Users/theho/CLionProjects/10-Million-Passwords/SFML-2.5.1/lib/sfml-system-d.lib  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+  LINK_LIBRARIES = C:/Users/theho/CLionProjects/10-Million-Passwords/SFML-2.5.1/lib/libsfml-graphics-d.a  C:/Users/theho/CLionProjects/10-Million-Passwords/SFML-2.5.1/lib/libsfml-window-d.a  C:/Users/theho/CLionProjects/10-Million-Passwords/SFML-2.5.1/lib/libsfml-system-d.a  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\10_Million_Passwords.dir
   POST_BUILD = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\theho\CLionProjects\10-Million-Passwords\cmake-build-debug && "C:\Program Files\JetBrains\CLion 2024.3.4\bin\cmake\win\x64\bin\cmake.exe" -E copy_if_different C:/Users/theho/CLionProjects/10-Million-Passwords/SFML-2.5.1/bin/sfml-graphics-d-2.dll C:/Users/theho/CLionProjects/10-Million-Passwords/cmake-build-debug && "C:\Program Files\JetBrains\CLion 2024.3.4\bin\cmake\win\x64\bin\cmake.exe" -E copy_if_different C:/Users/theho/CLionProjects/10-Million-Passwords/SFML-2.5.1/bin/sfml-window-d-2.dll C:/Users/theho/CLionProjects/10-Million-Passwords/cmake-build-debug && "C:\Program Files\JetBrains\CLion 2024.3.4\bin\cmake\win\x64\bin\cmake.exe" -E copy_if_different C:/Users/theho/CLionProjects/10-Million-Passwords/SFML-2.5.1/bin/sfml-system-d-2.dll C:/Users/theho/CLionProjects/10-Million-Passwords/cmake-build-debug"
   PRE_LINK = cd .
