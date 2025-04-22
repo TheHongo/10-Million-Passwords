@@ -4,6 +4,7 @@
 #include <string>
 #include <SFML/Graphics.hpp>
 #include <vector>
+#include <chrono>
 
 #include "Trie.h"
 #include "Hash_Table_LL_Chaining.h"
@@ -32,6 +33,9 @@ public:
 class Screen {
     Trie trie;
     Hash_Table_LL_Chaining hash;
+    std::chrono::high_resolution_clock::duration trie_time;
+    std::chrono::high_resolution_clock::duration hash_time;
+
 public:
     Screen(Trie& trie, Hash_Table_LL_Chaining& hash);
     sf::Text createText(const sf::Font& font, const string& String, int CharSize,

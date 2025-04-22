@@ -1,5 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include "GUI.h"
+#include <chrono>
 
 #include <iostream>
 using namespace std;
@@ -62,9 +63,11 @@ std::string Screen::processEvents(sf::RenderWindow& Screen, sf::Font& font,
     while (Screen.isOpen()) {
         sf::Event event;
         while (Screen.pollEvent(event)) {
+            std::cout << event.type << std::endl;
             if (event.type == sf::Event::Closed) {
                 Screen.close();
-                return ""; // Window was closed
+                exit(0); //done
+//                return ""; // Window was closed
             }
 
             if (event.type == sf::Event::TextEntered) {
@@ -89,8 +92,30 @@ std::string Screen::processEvents(sf::RenderWindow& Screen, sf::Font& font,
         // If found display rank else diplay N/A
         sf::Text PasswordReceivedText;
         if (passwordReceived) {
+            std::cout << "begening" << std::endl;
             PasswordReceivedText = createText(font, "Password Received", 16, sf::Color::Green, sf::Text::Bold);
             setText(PasswordReceivedText, width / 2.0f, height / 2.0f + 75); // Position below the last entered password
+            auto start = std::chrono::high_resolution_clock::now();
+            int trie_rank = trie.search(lastPassword);
+            auto end = std::chrono::high_resolution_clock::now();
+            trie_time = end - start;
+            start = std::chrono::high_resolution_clock::now();
+            int hash_rank = hash.search(lastPassword);
+            end = std::chrono::high_resolution_clock::now();
+            hash_time = end - start;
+            std::cout << "hello" << std::endl;
+            if (trie_rank != hash_rank){
+                std::cout << "Wrong rank found" << "\nHash Rank: " << hash_rank << "\nTrie Rank: " << trie_rank << std::endl;
+            }
+            if (trie_rank != -1){
+                // not valid
+            }
+            else {
+                // assign rank and put on screen
+            }
+            std::cout << "end near" << std::endl;
+            passwordReceived = false;
+
         }
 
         // Makes the background for the text

@@ -39,4 +39,5 @@ int main() {
     Screen screen(trie, hash);
     screen.openWindow(800.0f, 600.0f);
     // comment
+    return 0;
 }
