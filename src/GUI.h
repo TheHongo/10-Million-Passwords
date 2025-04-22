@@ -35,8 +35,8 @@ class Screen {
 
     Trie trie;
     Hash_Table_LL_Chaining hash;
-    std::chrono::high_resolution_clock::duration trie_time;
-    std::chrono::high_resolution_clock::duration hash_time;
+    std::chrono::duration<double, std::micro> trie_time = std::chrono::duration<double, std::micro>::zero();
+    std::chrono::duration<double, std::micro> hash_time = std::chrono::duration<double, std::micro>::zero();
     std::string rank;
 
 public:

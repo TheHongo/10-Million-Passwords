@@ -127,11 +127,11 @@ std::string Screen::processEvents(sf::RenderWindow& Screen, sf::Font& font,
             auto start = std::chrono::high_resolution_clock::now();
             int trie_rank = trie.search(lastPassword);
             auto end = std::chrono::high_resolution_clock::now();
-            trie_time = end - start;
+            trie_time = std::chrono::duration<double, std::micro>(end - start);
             start = std::chrono::high_resolution_clock::now();
             int hash_rank = hash.search(lastPassword);
             end = std::chrono::high_resolution_clock::now();
-            hash_time = end - start;
+            hash_time = std::chrono::duration<double, std::micro>(end - start);
             if (trie_rank != hash_rank){
                 std::cout << "Wrong rank found" << "\nHash Rank: " << hash_rank << "\nTrie Rank: " << trie_rank << std::endl;
             }
