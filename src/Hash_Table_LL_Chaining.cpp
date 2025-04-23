@@ -52,7 +52,6 @@ void Hash_Table_LL_Chaining::insert(int rank, std::string pass) {
     hash_table[hash(pass)].emplace_back(pass, rank);
     num_elements++;
     if (num_elements % 10000 == 0){
-        std::cout << "AT ELEMENT: " << num_elements << std::endl;
     }
     if (load_factor() > 2){
         rehash();
