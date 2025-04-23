@@ -21,7 +21,7 @@ int Hash_Table_LL_Chaining::hash(string &pass_key) const{
     }
     return hash_val % capacity;
 }
-
+//djb2 made by Daniel J. Bernstein
 //int Hash_Table_LL_Chaining::hash(string& str) const {
 //    unsigned long hash = 5381;
 //    for (char c : str) {
