@@ -22,14 +22,23 @@ int Hash_Table_LL_Chaining::hash(string &pass_key) const{
     return hash_val % capacity;
 }
 
+//int Hash_Table_LL_Chaining::hash(string& str) const {
+//    unsigned long hash = 5381;
+//    for (char c : str) {
+//        hash = ((hash << 5) + hash) + c;
+//    }
+//    return hash % capacity;
+//}
+//http://www.cse.yorku.ca/~oz/hash.html
+
 double Hash_Table_LL_Chaining::load_factor() const{
     return static_cast<double>(num_elements)/capacity;
 }
 
 void Hash_Table_LL_Chaining::rehash() {
     int old_capacity = capacity; // for indexing
-    int new_capacity = capacity * 2; // for new table hash
-    auto* new_table = new std::list<std::pair<std::string, int>>[new_capacity];
+    capacity = capacity * 2; // for new table hash
+    auto* new_table = new std::list<std::pair<std::string, int>>[capacity];
     for (int i = 0; i < old_capacity; i++){
         for (auto pass_rank: hash_table[i]){
             new_table[hash(pass_rank.first)].emplace_back(pass_rank.first, pass_rank.second);
@@ -41,7 +50,11 @@ void Hash_Table_LL_Chaining::rehash() {
 
 void Hash_Table_LL_Chaining::insert(int rank, std::string pass) {
     hash_table[hash(pass)].emplace_back(pass, rank);
-    if (load_factor() > 0.7){
+    num_elements++;
+    if (num_elements % 10000 == 0){
+        std::cout << "AT ELEMENT: " << num_elements << std::endl;
+    }
+    if (load_factor() > 2){
         rehash();
     }
 }

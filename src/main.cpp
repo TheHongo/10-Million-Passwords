@@ -12,7 +12,7 @@ int main() {
     // reading from the file and inserting into the data structure
     // create data structure objects
     Trie trie;
-    Hash_Table_LL_Chaining hash(100000);
+    Hash_Table_LL_Chaining hash(1000);
     // open file
     string filename = "../Data/10millionPasswords.csv";
     ifstream file;
